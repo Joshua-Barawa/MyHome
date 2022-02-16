@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home - Blogs</title>
+    <title>MyHome</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -24,12 +24,13 @@
     border-radius:5px;
     display:flex;
     flex-direction:column;
-    justify-content:space-around;
+    justify-content:space-between;
 }
+
 
 #other{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .posted{
@@ -46,21 +47,29 @@ width:100%;
 height:70%
 }
 
+#read-more{
+text-decoration:none;
+}
 
+.quotes{
+margin:auto;
+text-align:center;
+}
+
+#quote{
+font-size:25px;
+}
 
 </style>
 <body>
 
 <div class="nav">
-    <a href="/" class="logo">Blog-Site</a>
+    <a href="/" class="logo">MyHome</a>
 
 <ul class="links">
     {% if current_user.is_authenticated %}
- <li class="link"><a href='/blogs/web development'>Web-Development</a></li>
-    <li class="link"><a href='/blogs/technology'>Technology</a></li>
-    <li class="link"><a href='/blogs/business'>Business</a></li>
-     <li class="link"><a href='/blog-form'>Add-Blog</a></li>
-     <li class="link"><a href='/my-blogs'>My-blogs</a></li>
+     <li class="link"><a href='/post-form'>Add-Post</a></li>
+     <li class="link"><a href='/my-posts'>My-Posts</a></li>
     <li class="link"><a href='/profile'>Profile</a></li>
     <li class="link"><a href='/logout'>Logout</a></li>
     {% else %}
@@ -72,17 +81,18 @@ height:70%
 </ul>
 </div>
 
-<h1>{{message}}</h1>
 <div id="repos">
-{% for blog in blogs %}
+{% for post in posts %}
 <div class="user-repo">
-    <img class="image" src="{{ url_for('static',filename='images/' + blog.image)}}" alt="blog-pic">
-     <p class="h">{{blog.heading}}</p>
-
+    <img class="image" src="{{ url_for('static',filename='images/' + post.image)}}" alt="blog-pic">
      <div id="other">
-           <a class="btn btn-primary" href="/blog-update/{{blog.id}}">Update Blog</a>
-           <a class="btn btn-danger" href="/delete-blog/{{blog.id}}">Delete Blog</a>
+           <p class="l">Location: {{post.location}}</p>
+           <p class="d">Price/Month: KSH {{post.price}}</p>
            </div>
+     <div class="bottom">
+        <p class="h">{{post.title}}</p>
+          <a id="read-more" href="/post/{{post.id}}">more details</a>
+        </div>
         </div>`
 {%endfor %}
 </div>

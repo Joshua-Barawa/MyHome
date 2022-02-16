@@ -22,9 +22,6 @@
 
 <ul class="links">
     {% if current_user.is_authenticated %}
- <li class="link"><a href='/blogs/web development'>Web-Development</a></li>
-    <li class="link"><a href='/blogs/technology'>Technology</a></li>
-    <li class="link"><a href='/blogs/business'>Business</a></li>
      <li class="link"><a href='/blog-form'>Add-Blog</a></li>
      <li class="link"><a href='/my-blogs'>My-blogs</a></li>
     <li class="link"><a href='/profile'>Profile</a></li>
@@ -42,29 +39,28 @@
             <div class="row align-items-center justify-content-center">
                 <h1>Update Blog</h1>
             </div>
-            <form action="/update-blog/{{blog.id}}" method="POST" enctype="multipart/form-data" >
-                <div class="form-row">
-                      <label for="category">Blog Category</label>
-                    <select name="category" id="category" class="form-select" aria-label="Default select example">
-                      <option selected>{{blog.category_name}}</option>
-                      <option value="web development">Web Development</option>
-                       <option value="technology">Technology</option>
-                       <option value="business">Business</option>
-                    </select>
-                </div>
-                <br>
+            <form action="/update-post/{{post.id}}" method="POST" enctype="multipart/form-data" >
                  <div class="form-row">
-                    <label for="photo">Blog Pic</label>
+                    <label for="photo">Apartment Photo</label>
                     <input class="form-control" type="file" id="photo" name="photo">
                 </div>
+                 <div class="form-row">
+                    <label for="location">Apartment Location</label>
+                    <input class="form-control" type="text" placeholder="{{post.location}}" id="location" name="location">
+                </div>
                 <div class="form-row">
-                    <label for="heading">Blog Title</label>
-                    <input class="form-control" type="text" value={{blog.heading}} id="heading" name="heading">
+                    <label for="title">Apartment Title</label>
+                    <input class="form-control" type="text" placeholder="{{post.title}}" id="title" name="title">
                 </div>
                 <br>
                 <div class="form-row">
                     <label for="description">Description</label>
-                    <textarea class="form-control" type="text" value={{blog.description}} id="description" name="description"></textarea>
+                    <textarea class="form-control" type="text" placeholder={{post.description}} id="description" name="description"></textarea>
+                </div>
+                <br>
+                <div class="form-row">
+                    <label for="price">Price/month</label>
+                    <input class="form-control" type="text" placeholder={{post.price}} id="price" name="price">
                 </div>
                 <br>
                 <button type="submit " class="btn btn-primary " style="float:right ">Update</button>

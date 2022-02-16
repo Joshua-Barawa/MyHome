@@ -25,16 +25,7 @@ def posts():
     message = ''
     if not posts:
         message = "You have not uploaded any blog"
-    return render_template('blogs.html', posts=posts)
-
-
-@app.route('/my-blogs')
-def my_blogs():
-    posts = Post.query.filter_by(owner=current_user.username)
-    message = ''
-    if not posts:
-        message = "You have not uploaded any blog"
-    return render_template('my_blogs.html', posts=posts)
+    return render_template('posts.html', posts=posts)
 
 
 @app.route('/post-form')
@@ -65,6 +56,15 @@ def add_post():
             db.session.add(post)
             db.session.commit()
             return redirect(url_for("posts"))
+
+
+@app.route('/my-posts')
+def my_posts():
+    posts = Post.query.filter_by(owner=current_user.full_names)
+    message = ''
+    if not posts:
+        message = "You have not uploaded any blog"
+    return render_template('my_posts.html', posts=posts, message=message)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -101,14 +101,16 @@ def profile():
     return render_template("profile.html", user=user)
 
 
-@app.route('/blog/<int:id>')
+@app.route('/post/<int:id>')
 @login_required
 def read_more(id):
-    blog = Blog.query.filter_by(id=id).first()
-    comments = Comment.query.filter_by(blog_id=id)
-    if blog is None:
+    post = Post.query.filter_by(id=id).first()
+    comments = Comment.query.filter_by(post_id=id)
+    if post is None:
         abort(404)
-    return render_template("readmore.html", blog=blog, comments=comments)
+    if comments is None:
+        message = "No comments"
+    return render_template("readmore.html", post=post, comments=comments)
 
 
 @app.route('/add-comment', methods=['POST'])
@@ -117,7 +119,7 @@ def add_comment():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['comment']
-        blog_id = request.form['blog_id'];
+        post_id = request.form['post_id'];
         if name == '' or description == '' :
             return render_template("readmore.html", message="Please enter required fields")
         else:
@@ -136,53 +138,40 @@ def delete_comment(id):
     return redirect(url_for("read_more", id=delete_comment.blog_id))
 
 
-@app.route('/blog-update/<int:id>')
+@app.route('/post-update/<int:id>')
 @login_required
-def blog_update_form(id):
-    blog = Blog.query.filter_by(id=id).first()
-    return render_template("blog_update.html", blog=blog)
+def post_update_form(id):
+    post = Post.query.filter_by(id=id).first()
+    return render_template("post_update.html", post=post)
 
 
-@app.route('/update-blog/<int:id>', methods=['POST'])
+@app.route('/update-post/<int:id>', methods=['POST'])
 @login_required
-def blog_update(id):
-    category = request.form['category']
+def post_update(id):
+    location = request.form['location']
     image = request.files['photo']
-    heading = request.form['heading']
+    title = request.form['title']
     description = request.form['description']
-    posted = date.today()
-    owner = current_user.username
+    price = request.form['price']
+    owner = current_user.full_names
     pic_filename = secure_filename(image.filename)
     pic_name = str(uuid1()) + "_" + pic_filename
     image.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
 
-    edited_blog = Blog.query.filter_by(id=id).update({"category_name":category, "image":pic_name, "heading":heading,
-                                                       "description":description, "posted":posted, "owner":owner})
+    edited_post = Post.query.filter_by(id=id).update({"image":pic_name, "location":location, "title":title,
+                                                       "description":description, "price":price, "owner":owner})
 
     db.session.commit()
-    return redirect(url_for("my_blogs"))
+    return redirect(url_for("my_posts"))
 
 
-@app.route('/delete-blog/<int:id>')
+@app.route('/delete-post/<int:id>')
 @login_required
 def delete_blog(id):
-    delete_blog = Blog.query.filter_by(id=id).first()
-    db.session.delete(delete_blog)
+    delete_post = Post.query.filter_by(id=id).first()
+    db.session.delete(delete_post)
     db.session.commit()
-    return redirect(url_for("my_blogs"))
-
-
-def send_mail(recipient):
-    msg = Message(
-        'Subscription',
-        sender='mwamlandabarawa@gmail.com',
-        recipients=[recipient]
-    )
-    msg.body = 'Hello, \n You have subscribed to our daily messaging.' \
-               ' You will receive the best movie recommendations'
-    mail.send(msg)
-
-
+    return redirect(url_for("my_posts"))
 
 
 @app.route('/logout')
