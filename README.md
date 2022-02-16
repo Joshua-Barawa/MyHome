@@ -23,7 +23,7 @@ This is an application for students where they can find places to live at afford
 ## Setup/Installation Requirements
 * Clone or download the project from my repo https://github.com/Joshua-Barawa/MyHome
 * Open with pycharm or your prefered IDE
-* Or you can You can view it using this link https://blogs-today.herokuapp.com/
+* Or you can You can view it using this link https://myhome-today.herokuapp.com/
 
 ## Technologies Used
 * Flask
