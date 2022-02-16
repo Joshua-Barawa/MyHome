@@ -54,15 +54,12 @@ h1{
 </style>
 <body>
 <div class="nav">
-    <a href="/" class="logo">Blog-Site</a>
+    <a href="/" class="logo">MyHome</a>
 
 <ul class="links">
     {% if current_user.is_authenticated %}
- <li class="link"><a href='/blogs/web development'>Web-Development</a></li>
-    <li class="link"><a href='/blogs/technology'>Technology</a></li>
-    <li class="link"><a href='/blogs/business'>Business</a></li>
-     <li class="link"><a href='/blog-form'>Add-Blog</a></li>
-     <li class="link"><a href='/my-blogs'>My-blogs</a></li>
+     <li class="link"><a href='/post-form'>Add-Post</a></li>
+     <li class="link"><a href='/my-posts'>My-Posts</a></li>
     <li class="link"><a href='/profile'>Profile</a></li>
     <li class="link"><a href='/logout'>Logout</a></li>
     {% else %}
@@ -73,6 +70,8 @@ h1{
 
 </ul>
 </div>
+
+
 <div class="main">
 <h1>Account Login</h1>
   <p>Enter username and password to login</p>
