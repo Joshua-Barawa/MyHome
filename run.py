@@ -26,7 +26,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-from views import *
+
 
 manager = Manager(app)
 manager.add_command('server', Server)
@@ -46,7 +46,7 @@ login_manager.login_view = 'login'
 
 bcrypt = Bcrypt(app)
 mail = Mail(app)
-
+from views import *
 from models import *
 
 
