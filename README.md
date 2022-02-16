@@ -1,8 +1,8 @@
-# Blog
+# MyHome
 
 ## Table of Content
 ​
-- [Blog](#blog)
+- [MyHome](#myhome)
   - [Table of Content](#table-of-content)
   - [Description](#description)
   - [Contributors](#contributors)
@@ -12,12 +12,16 @@
     - [License](#license)
 
 ## Description
-This is an application for adding reading and adding blog posts
+This is an application for students where they can find places to live at affordable prices
 
 ## Contributors
 * Joshua Barawa
+* Caleb Mwangi
+* Barbara Reson
+* Okuna Venesa
+* Cheruiyot Langat
 ## Setup/Installation Requirements
-* Clone or download the project from my repo https://github.com/Joshua-Barawa/Blog-post
+* Clone or download the project from my repo https://github.com/Joshua-Barawa/MyHome
 * Open with pycharm or your prefered IDE
 * Or you can You can view it using this link https://blogs-today.herokuapp.com/
 
@@ -26,15 +30,10 @@ This is an application for adding reading and adding blog posts
 * Bootstrap
 * PostgreSQL
 ## Support and contact details
-* If you get any issue contact mwamlandabarawa@gmail.com
+* If you get any issue contact ourgroup@gmail.com
 ### License
-Joshua.M.Barawa License
-
-
 ​
-Copyright (c) 2021 
-
-
+Copyright (c) 2021
 
 ​
 Permission is hereby granted, free of charge, to any person obtaining a copy
