@@ -2,18 +2,14 @@ from flask import render_template, request, redirect, url_for, abort
 from run import bcrypt
 from run import db
 from run import app
-from run import mail
 from models import *
 from datetime import date
 from werkzeug.utils import secure_filename
 from flask_login import login_user, logout_user, login_required, current_user
 from forms import LoginForm, RegistrationForm
-
-from flask_mail import Message
-
 from uuid import uuid1
 import os
-import requests, json
+
 
 UPLOAD_FOLDER = 'static/images/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -22,9 +18,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def posts():
     posts = Post.query.all()
-    message = ''
-    if not posts:
-        message = "You have not uploaded any blog"
     return render_template('posts.html', posts=posts)
 
 
@@ -95,7 +88,7 @@ def login():
 @app.route('/profile')
 @login_required
 def profile():
-    user = User.query.filter_by(username=current_user.username).first()
+    user = User.query.filter_by(email=current_user.email).first()
     if user is None:
         abort(404)
     return render_template("profile.html", user=user)
@@ -123,19 +116,10 @@ def add_comment():
         if name == '' or description == '' :
             return render_template("readmore.html", message="Please enter required fields")
         else:
-            comment = Comment(blog_id, name, description)
+            comment = Comment(post_id, name, description)
             db.session.add(comment)
             db.session.commit()
-            return redirect(url_for("read_more", id=blog_id))
-
-
-@app.route('/delete-comment/<int:id>')
-@login_required
-def delete_comment(id):
-    delete_comment = Comment.query.filter_by(id=id).first()
-    db.session.delete(delete_comment)
-    db.session.commit()
-    return redirect(url_for("read_more", id=delete_comment.blog_id))
+            return redirect(url_for("read_more", id=post_id))
 
 
 @app.route('/post-update/<int:id>')

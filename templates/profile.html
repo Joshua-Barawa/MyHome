@@ -28,9 +28,6 @@ font-size: 20px;
 
 <ul class="links">
     {% if current_user.is_authenticated %}
- <li class="link"><a href='/blogs/web development'>Web-Development</a></li>
-    <li class="link"><a href='/blogs/technology'>Technology</a></li>
-    <li class="link"><a href='/blogs/business'>Business</a></li>
      <li class="link"><a href='/blog-form'>Add-Blog</a></li>
      <li class="link"><a href='/my-blogs'>My-blogs</a></li>
     <li class="link"><a href='/profile'>Profile</a></li>
@@ -45,9 +42,10 @@ font-size: 20px;
 </div>
 <div id="profile">
 <h1>User Profile</h1>
+    <p>User ID: {{user.id}}</p>
 <p>Full Names:{{user.full_names}}</p>
 <p>Email: {{user.email}}</p>
-<p>Username: {{user.username}}</p>
+<p>Member Since: {{user.member_since}}</p>
 </div>
 </body>
 </html>

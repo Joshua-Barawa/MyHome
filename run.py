@@ -15,22 +15,11 @@ if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] ="postgresql://msfymjupypanwa:017e15df3dbc3b5715be475b57f8400bfef32ee744a18079cf356c92fafedef6@ec2-54-156-110-139.compute-1.amazonaws.com:5432/dfkgqstcrcp5uc"
     app.config['SECRET_KEY'] = "1234567"
-    MAIL_SERVER = 'smtp.googlemail.com'
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USE_SSL'] = True
-    app.config['MAIL_USERNAME'] = 'joshua.barawa@student.moringaschool.com'
-    app.config['MAIL_PASSWORD'] = 'Mwa2748nda%'
-    app.config['MAIL_USE_SSL'] = True
+
 else:
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://projectdb:hello@localhost/projectdb'
     app.config['SECRET_KEY'] = "1234567"
-    app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
-    app.config['MAIL_USE_SSL'] = True
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USERNAME'] = 'joshua.barawa@student.moringaschool.com'
-    app.config['MAIL_PASSWORD'] = 'Mwa2748nda%'
-
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
